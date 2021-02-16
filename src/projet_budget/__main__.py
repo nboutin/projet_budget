@@ -6,6 +6,9 @@ Created on Feb 7, 2021
 
 import logging
 import os
+import sys
+
+from .cmdline.cmdline import parse_args
 
 __NAME = "Budget Projet"
 __VERSION = "0.1.0"
@@ -14,9 +17,11 @@ __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file
 __OUTPUT_FILEPATH = os.path.join(__location__, 'budget_projet.log')
 
 
-def main():
+def main(argv):
     configure_logger()
     logging.info('{} {}\n'.format(__NAME, __VERSION))
+
+    parse_args(argv)
 
 
 def configure_logger():
@@ -34,4 +39,4 @@ def configure_logger():
 
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1:])
