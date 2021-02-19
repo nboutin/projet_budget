@@ -4,7 +4,7 @@
 
 import logging
 import sqlite3 as sl
-from projet_budget.database import request
+from projet_budget.model import request
 
 
 class Transaction:

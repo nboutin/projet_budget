@@ -8,20 +8,27 @@ import logging
 import os
 import sys
 
-from .cmdline.args_parser import parse_args
+from .view.args_parser import ArgParser
+from .model.database import Database
+from .controller.controller import Controller
 
 __NAME = "Budget Projet"
 __VERSION = "0.1.0-dev"
 
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 __OUTPUT_FILEPATH = os.path.join(__location__, '{}.log'.format(__NAME.lower().replace(' ', '_')))
+__DB_PATHNAME = os.path.join(__location__, '{}.db'.format(__NAME.lower().replace(' ', '_')))
 
 
 def main(argv):
     configure_logger()
     logging.info('{} {}'.format(__NAME, __VERSION))
 
-    parse_args(argv)
+    db = Database(__DB_PATHNAME)
+    controller = Controller(db)
+
+    argp = ArgParser(controller)
+    argp.parse_args(argv)
 
 
 def configure_logger():
