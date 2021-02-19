@@ -8,7 +8,7 @@ import logging
 import os
 import sys
 
-from .view.args_parser import ArgParser
+from .view.console.args_parser import ArgParser
 from .model.database import Database
 from .controller.controller import Controller
 
