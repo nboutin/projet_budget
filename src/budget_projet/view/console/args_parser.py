@@ -80,7 +80,7 @@ class ArgParser:
 
         if cmd == 'transaction':
             self.parse_command_transaction(args)
-        if cmd == 'account':
+        elif cmd == 'account':
             self.parse_command_account(args)
         else:
             logging.error('unhandled command')

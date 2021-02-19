@@ -8,8 +8,8 @@ transaction_table = """
     CREATE TABLE TRANSACTION_ (
         id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
         date TEXT,
-        account_src TEXT,
-        account_dst TEXT,
+        account_src TEXT REFERENCES ACCOUNT (name),
+        account_dst TEXT REFERENCES ACCOUNT (name),
         description TEXT,
         credit INTEGER,
         debit INTEGER
