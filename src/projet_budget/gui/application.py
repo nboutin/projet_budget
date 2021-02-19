@@ -1,7 +1,7 @@
 '''
 Created on Feb 16, 2021
 
-@author: nbout
+@author: nboutin
 '''
 
 from tkinter import *

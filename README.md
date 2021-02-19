@@ -6,6 +6,8 @@ Transactions: date, account source, account destination, description, credit, de
 - Add transactions
 - Update transactions
 
+Data are stored in Database
+
 # Usage
 
     python -m src.projet_budget

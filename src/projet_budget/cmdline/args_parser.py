@@ -8,6 +8,8 @@ import getopt
 import sys
 import logging
 
+from projet_budget.command import command
+
 ''' follow by ':' require an argument '''
 __SHORT_OPTS = 'h'
 
@@ -90,7 +92,7 @@ def parse_command_transaction(argv):
             usage()
             sys.exit()
         elif opt in ('-l', '--list'):
-            pass
+            command.transaction_list()
         else:
             logging.error('unhandled {} option'.format(cmd))
             usage()
