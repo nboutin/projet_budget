@@ -8,7 +8,7 @@ import logging
 import os
 import sys
 
-from .cmdline.cmdline import parse_args
+from .cmdline.args_parser import parse_args
 
 __NAME = "Budget Projet"
 __VERSION = "0.1.0"
@@ -30,6 +30,12 @@ def configure_logger():
     '''
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
+
+    consoleHandler = logging.StreamHandler()
+    consoleHandler.setLevel(logging.INFO)
+    consoleFormatter = logging.Formatter('%(message)s')
+    consoleHandler.setFormatter(consoleFormatter)
+    logger.addHandler(consoleHandler)
 
     fileHandler = logging.FileHandler(__OUTPUT_FILEPATH, mode='w')
     fileHandler.setLevel(logging.DEBUG)
