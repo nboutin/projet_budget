@@ -11,7 +11,7 @@ import sys
 from .cmdline.args_parser import parse_args
 
 __NAME = "Budget Projet"
-__VERSION = "0.1.0"
+__VERSION = "0.1.0-dev"
 
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 __OUTPUT_FILEPATH = os.path.join(__location__, '{}.log'.format(__NAME.lower().replace(' ', '_')))
@@ -19,7 +19,7 @@ __OUTPUT_FILEPATH = os.path.join(__location__, '{}.log'.format(__NAME.lower().re
 
 def main(argv):
     configure_logger()
-    logging.info('{} {}\n'.format(__NAME, __VERSION))
+    logging.info('{} {}'.format(__NAME, __VERSION))
 
     parse_args(argv)
 

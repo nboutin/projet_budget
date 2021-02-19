@@ -8,9 +8,11 @@ Transactions: date, account source, account destination, description, credit, de
 
 # Usage
 
+    python -m src.projet_budget
+
     [command] [args]
 
-    transactions 
+    transactions
         --list -l 
         --add -a 
         --update -u
