@@ -19,5 +19,5 @@ transaction_select = 'SELECT * FROM TRANSACTION_'
 
 transaction_insert = """
     INSERT INTO
-        TRANSACTION_ (id, date, account_src, account_dst, description, credit, debit)
-        values (?, ?, ?, ?, ?, ?, ?)"""
+        TRANSACTION_ (date, account_src, account_dst, description, credit, debit)
+        values (?, ?, ?, ?, ?, ?)"""

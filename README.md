@@ -4,6 +4,7 @@ Transactions: date, account source, account destination, description, credit, de
 
 - List transactions
 - Add transactions
+- Remove transactions
 - Update transactions
 
 Data are stored in Database
@@ -15,9 +16,10 @@ Data are stored in Database
     [command] [args]
 
     transactions
-        --list -l 
-        --add -a 
-        --update -u
+        -l, --list
+        -a, --add
+        -r, --remove
+        -u, --update
 
 # Dependencies
 

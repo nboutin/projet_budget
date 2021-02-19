@@ -32,7 +32,6 @@ class Database:
         '''
         :param transaction: type Transaction
         '''
-        transaction.insert(0, '0')
         try:
             with self._con:
                 self._con.executemany(request.transaction_insert, (transaction,))
