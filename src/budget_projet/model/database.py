@@ -13,13 +13,14 @@ class Database:
 
         self._con = sl.connect(pathname)
 
-        self._create_tables()
+        self._create_table(request.transaction_table)
+        self._create_table(request.account_table)
 
-    def _create_tables(self):
+    def _create_table(self, table):
 
         try:
             with self._con:
-                return self._con.execute(request.transaction_table)
+                self._con.execute(table)
         except sl.OperationalError as e:
             logging.debug(e)
             pass
@@ -47,3 +48,16 @@ class Database:
         except sl.InterfaceError as e:
             logging.error(e)
             logging.error(id_)
+
+    def account_select(self):
+        with self._con:
+            return self._con.execute(request.account_select)
+
+    def account_insert(self, account):
+        try:
+            with self._con:
+                return self._con.executemany(request.account_insert, (account,))
+        except sl.ProgrammingError as e:
+            logging.error(e)
+            logging.error(account)
+            return False

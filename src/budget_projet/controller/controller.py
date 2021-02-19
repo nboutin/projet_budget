@@ -19,3 +19,12 @@ class Controller:
 
     def transaction_delete(self, id_):
         return self._database.transaction_delete(id_)
+
+    def account_list(self):
+        '''
+        :return list of list
+        '''
+        return [list(row) for row in self._database.account_select()]
+
+    def account_insert(self, account):
+        return self._database.account_insert(account)

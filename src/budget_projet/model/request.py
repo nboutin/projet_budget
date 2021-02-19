@@ -23,3 +23,13 @@ transaction_insert = """
         values (?, ?, ?, ?, ?, ?)"""
 
 transaction_delete = 'DELETE FROM TRANSACTION_ WHERE id=?'
+
+account_table = """
+    CREATE TABLE ACCOUNT (
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        name TEXT
+    );"""
+
+account_select = 'SELECT * FROM ACCOUNT'
+
+account_insert = 'INSERT INTO ACCOUNT (name) values (?)'

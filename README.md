@@ -1,13 +1,12 @@
 # Features
 
-Transactions: date, account source, account destination, description, credit, debit
-
-- List transactions
-- Add transactions
-- Remove transactions
-- Update transactions
-
 Data are stored in Database
+
+Transactions: date, account source, account destination, description, credit, debit
+List, Insert, Delete
+
+Account: name
+List, Insert, Delete
 
 # Usage
 
@@ -15,11 +14,16 @@ Data are stored in Database
 
     [command] [args]
 
-    transactions
-        -l, --list
-        -a, --add
-        -r, --remove
-        -u, --update
+    transaction
+		-l, --list
+		-i, --insert
+		-d, --delete
+        
+	account
+		-l, --list
+		-i, --insert
+		-d, --delete
+		
 
 # Dependencies
 
