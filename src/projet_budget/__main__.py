@@ -14,7 +14,7 @@ __NAME = "Budget Projet"
 __VERSION = "0.1.0"
 
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-__OUTPUT_FILEPATH = os.path.join(__location__, 'budget_projet.log')
+__OUTPUT_FILEPATH = os.path.join(__location__, '{}.log'.format(__NAME.lower().replace(' ', '_')))
 
 
 def main(argv):
