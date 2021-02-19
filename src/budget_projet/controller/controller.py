@@ -13,3 +13,6 @@ class Controller:
 
     def transaction_add(self, transaction):
         return self._database.transaction_insert(transaction)
+
+    def transaction_delete(self, id_):
+        return self._database.transaction_delete(id_)

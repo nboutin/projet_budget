@@ -23,8 +23,8 @@ class ArgParser:
 
     __COMMANDS = ['transaction']
 
-    __COMMAND_SHORT_OPTS = {'transaction': 'lau:'}
-    __COMMAND_LONG_OPTS = {'transaction': ['list', 'add', 'update=']}
+    __COMMAND_SHORT_OPTS = {'transaction': 'lidu'}
+    __COMMAND_LONG_OPTS = {'transaction': ['list', 'insert', 'delete', 'update']}
 
     def __init__(self, controller):
         self._controller = controller
@@ -66,7 +66,8 @@ class ArgParser:
         logging.info('commands:')
         logging.info('transaction -l -a -u')
         logging.info('  -l, --list\t List all transactions')
-        logging.info('  -a, --add date src dst desc credit debit\t Add a transaction')
+        logging.info('  -i, --insert date src dst desc credit debit\t Insert transaction')
+        logging.info('  -d, --delete id\t Delete transaction by id')
 
     def parse_command(self, argv):
         cmd = argv[0]
@@ -98,8 +99,10 @@ class ArgParser:
             elif opt in ('-l', '--list'):
                 data = self._controller.transaction_list()
                 printer.transaction_list(data)
-            elif opt in ('-a', '--add'):
-                self._controller.transaction_add(args)
+            elif opt in ('-i', '--insert'):
+                self._controller.transaction_insert(args)
+            elif opt in ('-d', '--delete'):
+                self._controller.transaction_delete(args)
             else:
                 logging.error('unhandled {} option'.format(cmd))
                 self.usage()

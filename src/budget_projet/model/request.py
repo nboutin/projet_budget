@@ -21,3 +21,5 @@ transaction_insert = """
     INSERT INTO
         TRANSACTION_ (date, account_src, account_dst, description, credit, debit)
         values (?, ?, ?, ?, ?, ?)"""
+
+transaction_delete = 'DELETE FROM TRANSACTION_ WHERE id=?'

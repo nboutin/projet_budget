@@ -19,7 +19,7 @@ class Database:
 
         try:
             with self._con:
-                self._con.execute(request.transaction_table)
+                return self._con.execute(request.transaction_table)
         except sl.OperationalError as e:
             logging.debug(e)
             pass
@@ -29,13 +29,21 @@ class Database:
             return self._con.execute(request.transaction_select)
 
     def transaction_insert(self, transaction):
-        '''
-        :param transaction: type Transaction
-        '''
         try:
             with self._con:
-                self._con.executemany(request.transaction_insert, (transaction,))
+                return self._con.executemany(request.transaction_insert, (transaction,))
         except sl.ProgrammingError as e:
             logging.error(e)
             logging.error(transaction)
             return False
+
+    def transaction_delete(self, id_):
+
+        id_ = int(id_[0])
+
+        try:
+            with self._con:
+                return self._con.execute(request.transaction_delete, (id_,))
+        except sl.InterfaceError as e:
+            logging.error(e)
+            logging.error(id_)
