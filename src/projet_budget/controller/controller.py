@@ -9,4 +9,4 @@ class Controller:
         self._database = database
 
     def transaction_list(self):
-        return self._database.transaction_select()
+        return [row for row in self._database.transaction_select()]

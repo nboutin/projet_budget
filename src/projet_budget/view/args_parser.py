@@ -8,6 +8,8 @@ import getopt
 import sys
 import logging
 
+from . import printer
+
 
 class ArgParser:
     ''' follow by ':' require an argument '''
@@ -93,7 +95,8 @@ class ArgParser:
                 self.usage()
                 sys.exit()
             elif opt in ('-l', '--list'):
-                list_ = self._controller.transaction_list()
+                data = self._controller.transaction_list()
+                printer.transaction_list(data)
             else:
                 logging.error('unhandled {} option'.format(cmd))
                 self.usage()
