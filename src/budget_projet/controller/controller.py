@@ -10,3 +10,6 @@ class Controller:
 
     def transaction_list(self):
         return [row for row in self._database.transaction_select()]
+
+    def transaction_add(self, transaction):
+        return self._database.transaction_insert(transaction)

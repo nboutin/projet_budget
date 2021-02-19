@@ -23,8 +23,8 @@ class ArgParser:
 
     __COMMANDS = ['transaction']
 
-    __COMMAND_SHORT_OPTS = {'transaction': 'la:u:'}
-    __COMMAND_LONG_OPTS = {'transaction': ['list', 'add=', 'update=']}
+    __COMMAND_SHORT_OPTS = {'transaction': 'lau:'}
+    __COMMAND_LONG_OPTS = {'transaction': ['list', 'add', 'update=']}
 
     def __init__(self, controller):
         self._controller = controller
@@ -40,7 +40,7 @@ class ArgParser:
             return
 
         try:
-            opts, args = getopt.getopt(argv, ArgParser.__SHORT_OPTS, ArgParser.__LONG_OPTS)
+            opts, _ = getopt.getopt(argv, ArgParser.__SHORT_OPTS, ArgParser.__LONG_OPTS)
         except getopt.GetoptError as err:
             logging.error(err)
             self.usage()
@@ -49,7 +49,7 @@ class ArgParser:
         if not opts:
             opts = [('-h', None)]
 
-        for opt, arg in opts:
+        for opt, _ in opts:
             if opt in ('-h', '--help'):
                 self.usage()
                 sys.exit()
@@ -66,6 +66,7 @@ class ArgParser:
         logging.info('commands:')
         logging.info('transaction -l -a -u')
         logging.info('  -l, --list\t List all transactions')
+        logging.info('  -a, --add date src dst desc credit debit\t Add a transaction')
 
     def parse_command(self, argv):
         cmd = argv[0]
@@ -90,13 +91,15 @@ class ArgParser:
         if not opts:
             opts = [('-h', None)]
 
-        for opt, arg in opts:
+        for opt, _ in opts:
             if opt in ('-h', '--help'):
                 self.usage()
                 sys.exit()
             elif opt in ('-l', '--list'):
                 data = self._controller.transaction_list()
                 printer.transaction_list(data)
+            elif opt in ('-a', '--add'):
+                self._controller.transaction_add(args)
             else:
                 logging.error('unhandled {} option'.format(cmd))
                 self.usage()
