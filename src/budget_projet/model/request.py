@@ -6,13 +6,15 @@
 # TEXT as ISO8601 strings ("YYYY-MM-DD HH:MM:SS.SSS").
 transaction_table = """
     CREATE TABLE TRANSACTION_ (
-        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-        date TEXT,
-        account_src TEXT REFERENCES ACCOUNT (name),
-        account_dst TEXT REFERENCES ACCOUNT (name),
-        description TEXT,
-        credit INTEGER,
-        debit INTEGER
+    id          INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL,
+    date        TEXT    NOT NULL,
+    account_src TEXT    REFERENCES ACCOUNT (name) NOT NULL,
+    account_dst TEXT    REFERENCES ACCOUNT (name) NOT NULL,
+    description TEXT,
+    credit      INTEGER NOT NULL,
+    debit       INTEGER NOT NULL,
+    FOREIGN KEY (account_src) REFERENCES ACCOUNT (name),
+    FOREIGN KEY (account_dst) REFERENCES ACCOUNT (name)
     );"""
 
 transaction_select = 'SELECT * FROM TRANSACTION_'
@@ -26,8 +28,8 @@ transaction_delete = 'DELETE FROM TRANSACTION_ WHERE id=?'
 
 account_table = """
     CREATE TABLE ACCOUNT (
-        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-        name TEXT
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+        name TEXT NOT NULL
     );"""
 
 account_select = 'SELECT * FROM ACCOUNT'

@@ -13,11 +13,10 @@ class Database:
 
         self._con = sl.connect(pathname)
 
-        self._create_table(request.transaction_table)
         self._create_table(request.account_table)
+        self._create_table(request.transaction_table)
 
     def _create_table(self, table):
-
         try:
             with self._con:
                 self._con.execute(table)
