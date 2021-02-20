@@ -2,6 +2,8 @@
 @author: nboutin
 '''
 
+foreign_key = "PRAGMA foreign_keys = 1"
+
 # Date and Time datatype
 # TEXT as ISO8601 strings ("YYYY-MM-DD HH:MM:SS.SSS").
 transaction_table = """

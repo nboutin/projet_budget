@@ -13,8 +13,17 @@ class Database:
 
         self._con = sl.connect(pathname)
 
+        self._execute(request.foreign_key)
         self._create_table(request.account_table)
         self._create_table(request.transaction_table)
+
+    def _execute(self, request):
+        try:
+            with self._con:
+                self._con.execute(request)
+        except sl.OperationalError as e:
+            logging.debug(e)
+            pass
 
     def _create_table(self, table):
         try:
@@ -33,6 +42,10 @@ class Database:
             with self._con:
                 return self._con.executemany(request.transaction_insert, (transaction,))
         except sl.ProgrammingError as e:
+            logging.error(e)
+            logging.error(transaction)
+            return False
+        except sl.OperationalError as e:
             logging.error(e)
             logging.error(transaction)
             return False
