@@ -23,10 +23,10 @@ class ArgParser:
 
     __COMMANDS = ['transaction', 'account']
 
-    __COMMAND_SHORT_OPTS = {'transaction': 'lid', 'account': 'li'}
+    __COMMAND_SHORT_OPTS = {'transaction': 'lid', 'account': 'lid'}
     __COMMAND_LONG_OPTS = {
         'transaction': ['list', 'insert', 'delete', 'update'],
-        'account': ['list', 'insert']}
+        'account': ['list', 'insert', 'delete']}
 
     def __init__(self, controller):
         self._controller = controller
@@ -66,13 +66,14 @@ class ArgParser:
         logging.info('optional arguments:')
         logging.info('-h, --help\t Show this help message and exit')
         logging.info('commands:')
+        logging.info('account -l -i')
+        logging.info('  -l, --list\t List all account')
+        logging.info('  -i, --insert name\t Insert account')
+        logging.info('  -d, --delete id\t Delete account by id')
         logging.info('transaction -l -i -d')
         logging.info('  -l, --list\t List all transactions')
         logging.info('  -i, --insert date src dst desc credit debit\t Insert transaction')
         logging.info('  -d, --delete id\t Delete transaction by id')
-        logging.info('account -l -i')
-        logging.info('  -l, --list\t List all account')
-        logging.info('  -i, --insert name\t Insert account')
 
     def parse_command(self, argv):
         cmd = argv[0]
@@ -138,6 +139,8 @@ class ArgParser:
                 printer.account_list(data)
             elif opt in ('-i', '--insert'):
                 self._controller.account_insert(args)
+            elif opt in ('-d', '--delete'):
+                self._controller.account_delete(args)
             else:
                 logging.error('unhandled {} option'.format(cmd))
                 self.usage()

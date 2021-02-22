@@ -4,6 +4,23 @@
 
 foreign_key = "PRAGMA foreign_keys = 1"
 
+account_table = """
+    CREATE TABLE ACCOUNT (
+    id   INTEGER PRIMARY KEY AUTOINCREMENT
+                 UNIQUE
+                 NOT NULL,
+    name TEXT    NOT NULL
+                 UNIQUE
+);"""
+
+account_select = 'SELECT * FROM ACCOUNT'
+
+account_insert = 'INSERT INTO ACCOUNT (name) values (?)'
+
+account_view = "CREATE VIEW v_account_{} AS SELECT * FROM TRANSACTION_ WHERE account_src = '{}';"
+
+account_delete = 'DELETE FROM ACCOUNT WHERE id=?'
+
 # Date and Time datatype
 # TEXT as ISO8601 strings ("YYYY-MM-DD HH:MM:SS.SSS").
 transaction_table = """
@@ -27,18 +44,3 @@ transaction_insert = """
         values (?, ?, ?, ?, ?, ?)"""
 
 transaction_delete = 'DELETE FROM TRANSACTION_ WHERE id=?'
-
-account_table = """
-    CREATE TABLE ACCOUNT (
-    id   INTEGER PRIMARY KEY AUTOINCREMENT
-                 UNIQUE
-                 NOT NULL,
-    name TEXT    NOT NULL
-                 UNIQUE
-);"""
-
-account_select = 'SELECT * FROM ACCOUNT'
-
-account_insert = 'INSERT INTO ACCOUNT (name) values (?)'
-
-accout_view = "CREATE VIEW v_account_{} AS SELECT * FROM TRANSACTION_ WHERE account_src = '{}';"

@@ -30,7 +30,7 @@ class Database:
         try:
             with self._con:
                 self._con.execute(table)
-        except sl.OperationalError as e:
+        except (sl.ProgrammingError, sl.OperationalError, sl.IntegrityError) as e:
             logging.debug(e)
             pass
 
@@ -45,7 +45,7 @@ class Database:
         try:
             with self._con:
                 self._con.executemany(request.account_insert, ([name],))
-        except sl.ProgrammingError as e:
+        except (sl.ProgrammingError, sl.OperationalError, sl.IntegrityError) as e:
             logging.error(e)
             logging.error(name)
             return False
@@ -54,8 +54,19 @@ class Database:
             return True
 
     def account_view(self, name):
-        req = request.accout_view.format(name, name)
+        req = request.account_view.format(name, name)
         self._execute(req)
+
+    def account_delete(self, id_):
+        '''
+        :param id_: int
+        '''
+        try:
+            with self._con:
+                return self._con.execute(request.account_delete, (id_,))
+        except (sl.ProgrammingError, sl.OperationalError, sl.IntegrityError) as e:
+            logging.error(e)
+            logging.error(id_)
 
     def transaction_select(self):
         with self._con:
@@ -77,12 +88,9 @@ class Database:
         '''
         :param id_: int
         '''
-
-        id_ = int(id_[0])
-
         try:
             with self._con:
                 return self._con.execute(request.transaction_delete, (id_,))
-        except sl.InterfaceError as e:
+        except (sl.ProgrammingError, sl.OperationalError, sl.IntegrityError) as e:
             logging.error(e)
             logging.error(id_)
