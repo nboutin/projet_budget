@@ -18,7 +18,7 @@ class Controller:
         return self._database.transaction_insert(transaction)
 
     def transaction_delete(self, id_):
-        return self._database.transaction_delete(id_)
+        return self._database.transaction_delete(int(id_[0]))
 
     def account_list(self):
         '''
@@ -26,5 +26,6 @@ class Controller:
         '''
         return [list(row) for row in self._database.account_select()]
 
-    def account_insert(self, account):
-        return self._database.account_insert(account)
+    def account_insert(self, name):
+
+        return self._database.account_insert(name[0])

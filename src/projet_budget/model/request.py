@@ -40,3 +40,5 @@ account_table = """
 account_select = 'SELECT * FROM ACCOUNT'
 
 account_insert = 'INSERT INTO ACCOUNT (name) values (?)'
+
+accout_view = "CREATE VIEW v_account_{} AS SELECT * FROM TRANSACTION_ WHERE account_src = '{}';"

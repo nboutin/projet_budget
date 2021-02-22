@@ -18,11 +18,12 @@ class Database:
         self._create_table(request.transaction_table)
 
     def _execute(self, request):
+        logging.debug(request)
         try:
             with self._con:
                 return self._con.execute(request)
-        except sl.OperationalError as e:
-            logging.debug(e)
+        except (sl.ProgrammingError, sl.OperationalError, sl.IntegrityError) as e:
+            logging.error(e)
             pass
 
     def _create_table(self, table):
@@ -33,11 +34,37 @@ class Database:
             logging.debug(e)
             pass
 
+    def account_select(self):
+        with self._con:
+            return self._con.execute(request.account_select)
+
+    def account_insert(self, name):
+        '''
+        :param name: string
+        '''
+        try:
+            with self._con:
+                self._con.executemany(request.account_insert, ([name],))
+        except sl.ProgrammingError as e:
+            logging.error(e)
+            logging.error(name)
+            return False
+        else:
+            self.account_view(name)
+            return True
+
+    def account_view(self, name):
+        req = request.accout_view.format(name, name)
+        self._execute(req)
+
     def transaction_select(self):
         with self._con:
             return self._con.execute(request.transaction_select)
 
     def transaction_insert(self, transaction):
+        '''
+        :param transaction: list
+        '''
         try:
             with self._con:
                 return self._con.executemany(request.transaction_insert, (transaction,))
@@ -47,6 +74,9 @@ class Database:
             return False
 
     def transaction_delete(self, id_):
+        '''
+        :param id_: int
+        '''
 
         id_ = int(id_[0])
 
@@ -56,16 +86,3 @@ class Database:
         except sl.InterfaceError as e:
             logging.error(e)
             logging.error(id_)
-
-    def account_select(self):
-        with self._con:
-            return self._con.execute(request.account_select)
-
-    def account_insert(self, account):
-        try:
-            with self._con:
-                return self._con.executemany(request.account_insert, (account,))
-        except sl.ProgrammingError as e:
-            logging.error(e)
-            logging.error(account)
-            return False
