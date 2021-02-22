@@ -20,7 +20,7 @@ class Database:
     def _execute(self, request):
         try:
             with self._con:
-                self._con.execute(request)
+                return self._con.execute(request)
         except sl.OperationalError as e:
             logging.debug(e)
             pass
@@ -41,11 +41,7 @@ class Database:
         try:
             with self._con:
                 return self._con.executemany(request.transaction_insert, (transaction,))
-        except sl.ProgrammingError as e:
-            logging.error(e)
-            logging.error(transaction)
-            return False
-        except sl.OperationalError as e:
+        except (sl.ProgrammingError, sl.OperationalError, sl.IntegrityError) as e:
             logging.error(e)
             logging.error(transaction)
             return False
