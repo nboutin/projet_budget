@@ -12,7 +12,7 @@ from .view.console.args_parser import ArgParser
 from .model.database import Database
 from .controller.controller import Controller
 
-__NAME = "Budget Projet"
+__NAME = "Projet Budget"
 __VERSION = "0.1.0-dev"
 
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
