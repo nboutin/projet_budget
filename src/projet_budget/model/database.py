@@ -21,10 +21,12 @@ class Database:
         logging.debug(request)
         try:
             with self._con:
-                return self._con.execute(request)
+                self._con.execute(request)
         except (sl.ProgrammingError, sl.OperationalError, sl.IntegrityError) as e:
             logging.error(e)
-            pass
+            return False
+        else:
+            return True
 
     def _create_table(self, table):
         try:
@@ -36,7 +38,7 @@ class Database:
 
     def account_select(self):
         with self._con:
-            return self._con.execute(request.account_select)
+            return self._con.execute(request.account_select).fetchall()
 
     def account_insert(self, name):
         '''
@@ -44,18 +46,17 @@ class Database:
         '''
         try:
             with self._con:
-                self._con.executemany(request.account_insert, ([name],))
+                self._con.execute(request.account_insert, (name,))
         except (sl.ProgrammingError, sl.OperationalError, sl.IntegrityError) as e:
             logging.error(e)
             logging.error(name)
             return False
         else:
-            self.account_view(name)
-            return True
+            return self._account_view(name)
 
-    def account_view(self, name):
-        req = request.account_view.format(name, name)
-        self._execute(req)
+    def _account_view(self, name):
+        req = request._account_view.format(name, name)
+        return self._execute(req)
 
     def account_delete(self, id_):
         '''

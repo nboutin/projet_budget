@@ -15,9 +15,9 @@ account_table = """
 
 account_select = 'SELECT * FROM ACCOUNT'
 
-account_insert = 'INSERT INTO ACCOUNT (name) values (?)'
+account_insert = '''INSERT INTO ACCOUNT (name) values (?)'''
 
-account_view = "CREATE VIEW v_account_{} AS SELECT * FROM TRANSACTION_ WHERE account_src = '{}';"
+_account_view = "CREATE VIEW [v_account_{}] AS SELECT * FROM TRANSACTION_ WHERE account_src = '{}';"
 
 account_delete = 'DELETE FROM ACCOUNT WHERE id=?'
 
