@@ -1,0 +1,28 @@
+@startuml
+
+class Controller {
+	-database
+	+__init__(Database)
+	+account_list()
+	+account_insert(name)
+	+account_delete(id)
+	+transaction_list()
+	+transaction_insert(transaction)
+	+transaction_delete(id)
+}
+
+class Database {
+	-con
+	+__init__(pathname)
+	+account_select()
+	+account_insert(name)
+	+account_delete(id)
+	+transaction_select()
+	+transaction_insert(transaction)
+	+transaction_delete(id)
+	-execute()
+	-create_table()
+	-account_view()
+}
+
+@enduml
