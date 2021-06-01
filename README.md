@@ -23,7 +23,17 @@ List, Insert, Delete
 		-l, --list
 		-i, --insert
 		-d, --delete
-		
+
+# Development
+
+PEP8 configuration:
+
+    -a -a --max-line-length 120
+
+# Test
+
+	cd src
+	python -m unittest -v
 
 # Dependencies
 
